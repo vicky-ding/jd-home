@@ -1,0 +1,28 @@
+{
+  "name": "jd-home",
+  "version": "1.0.0",
+  "description": "React project built on the homepage of jd.com",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vicky-ding/jd-home.git"
+  },
+  "keywords": [],
+  "author": "vicky-ding",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vicky-ding/jd-home/issues"
+  },
+  "homepage": "https://github.com/vicky-ding/jd-home#readme",
+  "dependencies": {
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "mysql": "^2.16.0",
+    "uuid": "^3.0.1"
+  }
+}
