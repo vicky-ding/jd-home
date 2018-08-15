@@ -7,7 +7,7 @@ const bodyParser = require('koa-bodyparser')
 
 const app = new Koa()
 
-app.use(serve('web'))
+app.use(serve(__dirname + '/web/dist'))
 app.use(bodyParser({
   formLimit: '10mb',
   jsonLimit: '10mb'
@@ -27,7 +27,8 @@ app.use(async (ctx, next) => {
   await next()
 })
 
-router.all('/', require('./route/index'))
+router.all('/user', require('./route/user'))
+router.use('/otherapp', require('./route/otherapp').routes())
 
 const routes = router.routes()
 app.use(routes)

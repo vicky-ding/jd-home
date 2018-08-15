@@ -14,37 +14,38 @@ const TABLE_SQL = `create table if not exists \`${TABLE_NAME}\` (
 MySql.createTable(TABLE_SQL).then(() => init())
 
 function init() {
-  exports.findByName(['admin'])
+  exports.findByName('admin')
   .then(user => {
     if (user.length == 0) {
-      exports.insertUser(['admin', md5('123456')])
+      exports.insertUser('admin', md5('123456'))
     }
   }).catch(err => console.log(err))
 }
 
 /**
  * 根据id查找用户
- * @param {*} values 
- */
-exports.findById = values => {
-  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`id\` = ?;`
-  return MySql.query(sql, values)
-}
-
-/**
- * 根据name查找用户
- * @param {*} values 
- */
-exports.findByName = values => {
-  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`name\` = ?;`
-  return MySql.query(sql, values)
-}
-
-/**
- * 根据name查找用户
  * @param {*} id 
  */
-exports.insertUser = (values) => {
+exports.findById = id => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`id\` = ?;`
+  return MySql.query(sql, [id])
+}
+
+/**
+ * 根据name查找用户
+ * @param {*} name 
+ */
+exports.findByName = name => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`name\` = ?;`
+  return MySql.query(sql, [name])
+}
+
+/**
+ * 根据name查找用户
+ * @param {*} name 
+ * @param {*} password 
+ */
+exports.insertUser = (name, password) => {
   let sql = `INSERT INTO \`${TABLE_NAME}\` (\`name\`, \`password\`) VALUES (?, ?);`
-  return MySql.query(sql, values)
+  return MySql.query(sql, [name, password])
 }

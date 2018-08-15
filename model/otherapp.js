@@ -16,15 +16,12 @@ MySql.createTable(TABLE_SQL)
 
 /**
  * 新增一条头部导航信息
- * @param {*} value 
  */
-exports.insertOtherapp = async values => {
-  try {
-    return await MySql.query(`INSERT INTO \`${TABLE_NAME}\` (\`title\`, \`url\`, \`icon\`, \`active\`, \`orderval\`) VALUES (?, ?, ?, ?, ?);`, values)
-  } catch (error) {
-    console.error(error)
-    return null
-  }
+exports.insertOtherapp = (title, url, icon, active, orderval) => {
+  let sql = `INSERT INTO \`${TABLE_NAME}\` (
+    \`title\`, \`url\`, \`icon\`, \`active\`, \`orderval\`
+  ) VALUES (?, ?, ?, ?, ?);`
+  return MySql.query(sql, [title, url, icon, active, orderval])
 }
 
 /**
@@ -32,22 +29,14 @@ exports.insertOtherapp = async values => {
  * @param {*} id 
  */
 exports.deleteById = async id => {
-  try {
-    return await MySql.query(`DELETE FROM \`${TABLE_NAME}\` WHERE \`id\` = ${id};`)
-  } catch (error) {
-    console.error(error)
-    return null
-  }
+  let sql = `DELETE FROM \`${TABLE_NAME}\` WHERE \`id\` = ?;`
+  return MySql.query(sql, [id])
 }
 
 /**
  * 查找所有的信息
  */
-exports.findOtherapps = () => {
-  try {
-    return await MySql.query(`SELECT * FROM \`${TABLE_NAME}\`;`)
-  } catch (error) {
-    console.error(error)
-    return null
-  }
+exports.listAll = () => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\`;`
+  return MySql.query(sql, [])
 }

@@ -1,0 +1,52 @@
+.ant-layout-sidebar,.ant-layout-sidebar-base {
+    background: #404040;
+    position: absolute;
+    overflow: auto;
+    padding-bottom: 24px;
+    transition: all .3s ease;
+    height: 100%;
+}
+
+.ant-layout-sidebar {
+    width: 224px
+}
+
+.ant-layout-sidebar-collapse {
+    width: 64px;
+    background: #404040;
+    position: absolute;
+    overflow: auto;
+    padding-bottom: 24px;
+    transition: all .3s ease;
+    height: 100%;
+}
+
+.ant-layout-sidebar>.ant-menu {
+    margin-bottom: 20px
+}
+
+.ant-layout-sidebar>.ant-menu>.ant-menu-item {
+    margin: 16px 0
+}
+
+.ant-layout-sidebar>.ant-menu>.ant-menu-item .nav-text {
+    vertical-align: baseline;
+    display: inline-block
+}
+
+.ant-layout-sidebar>.ant-menu .invisible-nav-text {
+    font-size: 0
+}
+
+.ant-layout-sidebar>.ant-menu>.ant-menu-item>.anticon {
+    transition: font-size .3s
+}
+
+.ant-menu-dark,.ant-menu-dark .ant-menu-sub {
+    color: hsla(0,0%,100%,.67);
+    background: #404040
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    background: #333
+}

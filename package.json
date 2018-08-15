@@ -4,7 +4,9 @@
   "description": "React project built on the homepage of jd.com",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node script/cli.js web/dist && webpack --progress --colors --config script/webpack.dev.js",
+    "build": "node script/cli.js web/dist && webpack --progress --colors --config webpack.production.js",
+    "server": "webpack-dev-server --config script/webpack.dev.js --inline --hot --open"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,29 @@
     "url": "https://github.com/vicky-ding/jd-home/issues"
   },
   "homepage": "https://github.com/vicky-ding/jd-home#readme",
+  "devDependencies": {
+    "antd": "^3.8.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "fs-extra": "^6.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "http-proxy": "^1.16.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.4.1",
+    "webpack-merge": "^4.1.3"
+  },
   "dependencies": {
     "koa": "^2.5.2",
     "koa-bodyparser": "^3.2.0",
