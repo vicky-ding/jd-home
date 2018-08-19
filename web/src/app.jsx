@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.min.css';
 import '../src/asset/style/public.css';
-import FirstContainer from './container/first';
-import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
+import '../src/asset/iconfont/style.css';
+import HomeContainer from './container/home';
+import { HashRouter, Switch, Redirect, Route } from 'react-router-dom';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <HashRouter>
         <Switch>
-            <Redirect from="/" exact to="/first" />
-            <Route path="/:index" component={FirstContainer} />
+            <Redirect from="/" exact to="/home" />
+            <Route path="/home" component={HomeContainer} />
+            <Route path="/home/:item" component={HomeContainer} />
         </Switch>
-    </BrowserRouter>,
+    </HashRouter>,
 document.getElementById('app'));

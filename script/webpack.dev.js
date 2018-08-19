@@ -39,17 +39,18 @@ module.exports = {
                     use: ['css-loader']
                 })
             }, {
-                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                test: /\.(png|jpe?g|gif)(\?.*)?$/,
                 loader: 'file-loader',
                 options: {
                     limit: 8192,
                     name: 'img/[name].[ext]?v=[hash:6]'
                 }
             }, {
-                test: /\.(woff|eot|ttf|svg|gif)$/,
+                test: /\.(woff|eot|ttf|svg)$/,
                 loader: 'file-loader',
                 options: {
                     limit: 8192,
+                    publicPath: '../',
                     name: 'font/[name].[ext]?v=[hash:6]'
                 }
             }

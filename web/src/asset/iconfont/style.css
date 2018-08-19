@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'YISHOU';
+  src:  url('fonts/YISHOU.eot?mlmxse');
+  src:  url('fonts/YISHOU.eot?mlmxse#iefix') format('embedded-opentype'),
+    url('fonts/YISHOU.ttf?mlmxse') format('truetype'),
+    url('fonts/YISHOU.woff?mlmxse') format('woff'),
+    url('fonts/YISHOU.svg?mlmxse#YISHOU') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'YISHOU' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "\e90d";
+}
+.icon-all:before {
+  content: "\e90e";
+}
+.icon-banner:before {
+  content: "\e90f";
+}
+.icon-drag:before {
+  content: "\e910";
+}
+.icon-font:before {
+  content: "\e911";
+}
+.icon-new:before {
+  content: "\e912";
+}
+.icon-sales:before {
+  content: "\e913";
+}
+.icon-dele:before {
+  content: "\e914";
+}
+.icon-shift_down:before {
+  content: "\e915";
+}
+.icon-shift_up:before {
+  content: "\e916";
+}
+.icon-close:before {
+  content: "\e900";
+}
+.icon-alert1:before {
+  content: "\e901";
+}
+.icon-alert2:before {
+  content: "\e902";
+}
+.icon-alert3:before {
+  content: "\e903";
+}
+.icon-alert4:before {
+  content: "\e904";
+}
+.icon-arrow_down:before {
+  content: "\e905";
+}
+.icon-arrow_right:before {
+  content: "\e906";
+}
+.icon-arrow_up:before {
+  content: "\e907";
+}
+.icon-head:before {
+  content: "\e908";
+}
+.icon-icon1:before {
+  content: "\e909";
+}
+.icon-icon2:before {
+  content: "\e90a";
+}
+.icon-menu:before {
+  content: "\e90b";
+}
+.icon-notice:before {
+  content: "\e90c";
+}
