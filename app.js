@@ -7,6 +7,7 @@ const bodyParser = require('koa-bodyparser')
 
 const app = new Koa()
 
+// koa-static模块为静态资源请求中间件
 app.use(serve(__dirname + '/web/dist'))  //app.use中间件
 app.use(bodyParser({        //bodyParser插件  将前端参数格式化
   formLimit: '10mb',
@@ -24,7 +25,8 @@ app.use(async (ctx, next) => {
   }
 
   ctx.set('X-Request-Id', requestId)   // 设置响应头
-  ctx.set('Access-Control-Allow-Origin', '*')  //Access-Control-Allow-Origin 允许跨域
+  ctx.set('Access-Control-Allow-Origin', '*')  
+  //Access-Control-Allow-Origin 允许跨域
   await next()   //await 同步
 })
 
@@ -50,7 +52,9 @@ app.use(async (ctx, next) => {
         stat: 'OK',
         message: 'hello dinglijuan'
       }
-      break;
+    
+    case '/redirect':
+      return ctx.redirect('https://www.baidu.com')
   
     default:
       await next()
@@ -60,7 +64,7 @@ app.use(async (ctx, next) => {
 
 // 创建接口
 router.all('/user', require('./route/user'))
-router.use('/otherapp', require('./route/otherapp').routes())
+router.use('/otherapp',  require('./route/otherapp').routes())
 
 const routes = router.routes()
 app.use(routes)
