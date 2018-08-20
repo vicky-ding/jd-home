@@ -5,6 +5,13 @@ import classnames from 'classnames';
 import GoodsInfo from '../goods-info';
 import GoodsEdit from '../goods-edit';
 import Header from '../../component/header';
+import CheckList from '../check-list/checklist'
+import UnCheckList from '../uncheck-list/index'
+import CheckedList from '../check-list/checklist'
+import hashHistory from 'react-router-dom'
+import Yunying from '../yunying/index'
+import AllGoods from '../all-goods/index'
+
 import { Redirect, Switch, Route, Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
@@ -28,11 +35,14 @@ export default class Home extends React.Component {
                     headerIconClick={() => this.setState({showSidebar: !this.state.showSidebar})} >
                     <ul className="header-menu">
                         {this.headerMenu.map((item, index) => 
+                       
                             <li key={index}
                                 onClick={this.headerMenuClick.bind(this, item.key)}
                                 className={classnames({active: this.state.currentHeaderMenu === item.key})}>
                                 <span className="span-inner">{item.name}</span>
-                            </li>)
+                            </li>
+                        
+                        )
                         }
                     </ul>
                 </Header>
@@ -53,17 +63,26 @@ export default class Home extends React.Component {
                             </Menu.SubMenu>
                             <Menu.SubMenu key="sub2"
                                 title={<span><Icon type="setting" /><span>商品审核</span></span>}>
-                                <Menu.Item key="3">审核列表</Menu.Item>
-                                <Menu.Item key="4">待审核列表</Menu.Item>
-                                <Menu.Item key="5">已审核列表</Menu.Item>
+                                <Menu.Item key="3">
+                                    <Link to="/home/checklist">审核列表</Link>
+                                </Menu.Item>
+                                <Menu.Item key="4">
+                                    <Link to="/home/unchecklist">待审核列表</Link>
+                                </Menu.Item>
+                                <Menu.Item key="5">
+                                    <Link to="/home/checkedlist">已审核列表</Link>
+                                </Menu.Item>
                             </Menu.SubMenu>
                         </Menu>
                     </div>
                     <div className="content">
-                        <Switch>
+                        <Switch history={hashHistory}>
                             <Redirect from="/home" exact to="/home/info" />
                             <Route path="/home/info" component={GoodsInfo} />
                             <Route path="/home/edit" component={GoodsEdit} />
+                            <Route path="/home/checklist" component={CheckList} />
+                            <Route path="/home/unchecklist" component={UnCheckList} />
+                            <Route path="/home/checkedlist" component={CheckedList} />
                         </Switch>
                     </div>
                 </div>
@@ -75,7 +94,8 @@ export default class Home extends React.Component {
         return (
             <ul>
                 <li className="menu-user-li">
-                    <i className="menu-user-icon icon-notice"></i>
+                    <Icon type="bell" className="menu-user-icon"/>
+                    {/* <i className="menu-user-icon icon-notice"></i> */}
                 </li>
                 <li className="menu-user-li">
                     <i className="menu-user-icon icon-head"></i>
@@ -85,6 +105,7 @@ export default class Home extends React.Component {
                     <span className="span-inner">退出</span>
                 </li>
             </ul>
+            
         )
     }
 
