@@ -1,10 +1,10 @@
 import './index.css';
 import * as React from 'react';
-import { Menu, Icon } from 'antd';
 import classnames from 'classnames';
 import GoodsInfo from '../goods-info';
 import GoodsEdit from '../goods-edit';
 import Header from '../../component/header';
+import { Menu, Icon, Breadcrumb } from 'antd';
 import { Redirect, Switch, Route, Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
@@ -60,6 +60,10 @@ export default class Home extends React.Component {
                         </Menu>
                     </div>
                     <div className="content">
+                        <Breadcrumb style={{marginBottom: 20}}>
+                            <Breadcrumb.Item>商品管理</Breadcrumb.Item>
+                            <Breadcrumb.Item>商品信息</Breadcrumb.Item>
+                        </Breadcrumb>
                         <Switch>
                             <Redirect from="/home" exact to="/home/info" />
                             <Route path="/home/info" component={GoodsInfo} />
