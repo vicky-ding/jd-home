@@ -18,15 +18,21 @@ app.use(bodyParser({        //bodyParser插件  将前端参数格式化
 app.use(async (ctx, next) => {
   var requestId = uuid.v4()  //uuid生成唯一的字符串, v4随机生成，v1按照时间戳生成
   ctx.err = function (err) {
+    console.error(err)
     ctx.body = {
-      message: err,
-      stat: STAT.SERVER_EXCEPTION
+      stat: STAT.SERVER_EXCEPTION,
+      message: JSON.stringify(err) || '服务端异常'
     }
   }
 
   ctx.set('X-Request-Id', requestId)   // 设置响应头
-  ctx.set('Access-Control-Allow-Origin', '*')  
+  ctx.set('Access-Control-Allow-Origin', '*')
+  ctx.set('Access-Control-Allow-Methods', '*')
+  ctx.set('Access-Control-Allow-Headers', 'Content-Type')
   //Access-Control-Allow-Origin 允许跨域
+  if (ctx.method === 'OPTIONS') {
+    return ctx.body = ''
+  }
   await next()   //await 同步
 })
 
