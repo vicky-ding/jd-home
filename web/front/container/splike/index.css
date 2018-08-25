@@ -1,0 +1,107 @@
+#splike {
+	background-color: #fff;
+	margin-top: 5px;
+	padding: 5px;
+}
+
+.splike-header > i {
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: 2px;
+	width: 18px;
+	height: 22px;
+	background:url(../../asset/img/jd-sprites.png) -84px -109px no-repeat;
+	background-size: 200px 200px;
+}
+
+.splike-title {
+	white-space: nowrap;
+    display: inline-block;
+    font-size: 15px;
+    color: #ca1327;
+    margin: 10px 6px 0 5px;
+}
+
+.splike-time {
+	display: inline-block;
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+.splike-time span {
+	display: inline-block;
+	width: 30px;
+	height: 15px;
+	padding: auto;
+	text-align: center;
+	color: #fff;
+	background: #3d3d3d;
+	border-radius: 2px;
+	padding-right: 2px;
+	margin: 0 2px;
+}
+
+.splike-more {
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.splike-more  span {
+	color: #666;
+}
+
+.splike-more i {
+	display: inline-block;
+    width: 7px;
+    height: 12px;
+    margin: 2px 0 0 2px;
+    background: url(../../asset/img/jd-sprites.png) -186px -51px no-repeat;
+    background-size: 200px 200px;
+}
+
+.splike-more:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.splike-content {
+	margin-top: 10px;
+	height: 150px;
+}
+
+.splike-content li {
+	width: 33%;
+	text-align: center;
+	float: left;
+}
+
+.splike-content div {
+	width: 100px;
+	display: inline-block;
+	border-right: 1px solid #f3f5f7;
+}
+
+.last-store {
+	border: 0;
+}
+
+.splike-content img {
+	width: 100%;
+}
+
+.splike-content p {
+	margin-top: 8px;
+	color: #ed5657;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.splike-content .price-original {
+	color: #888;
+    font-size: 10px;
+    margin: 5px 0 12px 0;
+    text-align: center;
+    text-decoration: line-through;
+}
+

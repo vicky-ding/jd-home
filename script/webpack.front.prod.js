@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const commonConfig = require('./webpack.dev');
+var commonConfig = require('./webpack.front');
 
 const prodConfig = webpackMerge(commonConfig, {
   devtool: false,
@@ -10,12 +9,6 @@ const prodConfig = webpackMerge(commonConfig, {
       'process.env': {
         NODE_ENV: '"production"'
       }
-    }),
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: { discardComments: { removeAll: true } },
-      canPrint: true
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

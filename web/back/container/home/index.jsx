@@ -1,10 +1,10 @@
 import './index.css';
 import * as React from 'react';
 import classnames from 'classnames';
-import GoodsInfo from '../goods-info';
-import GoodsEdit from '../goods-edit';
+import Swiper from '../swiper';
+import OhterApp from '../other-app';
 import Header from '../../component/header';
-import { Menu, Icon, Breadcrumb } from 'antd';
+import { Menu, Icon } from 'antd';
 import { Redirect, Switch, Route, Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
@@ -43,12 +43,12 @@ export default class Home extends React.Component {
                             defaultOpenKeys={['sub1']}
                             defaultSelectedKeys={['1']} >
                             <Menu.SubMenu key="sub1"
-                                title={<span><Icon type="appstore" /><span>商品管理</span></span>}>
+                                title={<span><Icon type="appstore" /><span>导航管理</span></span>}>
                                 <Menu.Item key="1">
-                                    <Link to="/home/info">商品信息</Link>
+                                    <Link to="/home/otherapp">导航信息</Link>
                                 </Menu.Item>
                                 <Menu.Item key="2">
-                                    <Link to="/home/edit">编辑信息</Link>
+                                    <Link to="/home/swiper">轮播图信息</Link>
                                 </Menu.Item>
                             </Menu.SubMenu>
                             <Menu.SubMenu key="sub2"
@@ -60,14 +60,10 @@ export default class Home extends React.Component {
                         </Menu>
                     </div>
                     <div className="content">
-                        <Breadcrumb style={{marginBottom: 20}}>
-                            <Breadcrumb.Item>商品管理</Breadcrumb.Item>
-                            <Breadcrumb.Item>商品信息</Breadcrumb.Item>
-                        </Breadcrumb>
                         <Switch>
                             <Redirect from="/home" exact to="/home/info" />
-                            <Route path="/home/info" component={GoodsInfo} />
-                            <Route path="/home/edit" component={GoodsEdit} />
+                            <Route path="/home/otherapp" component={OhterApp} />
+                            <Route path="/home/swiper" component={Swiper} />
                         </Switch>
                     </div>
                 </div>

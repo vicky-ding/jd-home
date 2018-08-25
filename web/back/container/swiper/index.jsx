@@ -1,14 +1,13 @@
 import './index.css';
 import * as React from 'react';
 import http from '../../util/http';
-import { Input, InputNumber, Switch, Button, Table, message } from 'antd';
+import { Input, InputNumber, Switch, Button, Table, message, Breadcrumb } from 'antd';
 
-export default class GoodsInfo extends React.Component {
+export default class Swiper extends React.Component {
     state = {
         list: [],
         loading: false,
         form: {
-            title: '',
             url: '',
             icon: '',
             active: false,
@@ -17,10 +16,6 @@ export default class GoodsInfo extends React.Component {
     }
 
     columns = [{
-        title: '名称',
-        align: 'center',
-        dataIndex: 'title'
-    }, {
         title: '排序值',
         align: 'center',
         dataIndex: 'orderval'
@@ -52,14 +47,12 @@ export default class GoodsInfo extends React.Component {
     render() {
         return (
             <div className="goods-container">
+                <Breadcrumb style={{marginBottom: 20}}>
+                    <Breadcrumb.Item>导航管理</Breadcrumb.Item>
+                    <Breadcrumb.Item>轮播图信息</Breadcrumb.Item>
+                </Breadcrumb>
                 <div className="block-box flex">
                     <div className="form-left">
-                        <div className="mb-20">
-                            <label>名称：</label>
-                            <Input value={this.state.form.title} style={{ width: 200 }} placeholder="请输入名称" onChange={e => this.setFormState('title', e.target.value)} />
-                            <label style={{ marginLeft: 20 }}>排序值：</label>
-                            <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
-                        </div>
                         <div className="flex mb-20">
                             <label>跳转链接：</label>
                             <Input value={this.state.form.url} style={{ flex: 1 }} placeholder="请输入跳转链接" onChange={e => this.setFormState('url', e.target.value)} />
@@ -70,7 +63,9 @@ export default class GoodsInfo extends React.Component {
                         </div>
                         <div className="flex-between mt-20">
                             <div>
-                                <label>是否上架：</label>
+                                <label>排序值：</label>
+                                <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
+                                <label style={{ marginLeft: 20 }}>是否上架：</label>
                                 <Switch checked={this.state.form.active} onChange={checked => this.setFormState('active', checked)} />
                             </div>
                             <div>
@@ -82,7 +77,6 @@ export default class GoodsInfo extends React.Component {
                     <div className="form-right">
                         <div className="preview">
                             {this.state.form.icon && <img src={this.state.form.icon} />}
-                            <p>{this.state.form.title}</p>
                         </div>
                     </div>
                 </div>
@@ -101,7 +95,7 @@ export default class GoodsInfo extends React.Component {
     getListData() {
         this.setState({loading: true});
         http.post({
-            url: '/otherapp/listAll'
+            url: '/swiper/listAll'
         }).then(result => {
             if (result.stat === 'OK') {
                 this.setState({ list: result.data.list });
@@ -117,11 +111,12 @@ export default class GoodsInfo extends React.Component {
 
     addOtherApp() {
         http.post({
-            url: '/otherapp/addOtherApp',
+            url: '/swiper/addSwiper',
             data: this.state.form
         }).then(result => {
             if (result.stat === 'OK') {
                 message.success('添加成功~');
+                this.getListData();
             } else {
                 message.error(result.data.message || '出错了');
             }

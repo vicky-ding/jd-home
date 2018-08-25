@@ -70,6 +70,7 @@ app.use(async (ctx, next) => {
 
 // 创建接口
 router.all('/user', require('./route/user'))
+router.use('/swiper',  require('./route/swiper').routes())
 router.use('/otherapp',  require('./route/otherapp').routes())
 
 const routes = router.routes()

@@ -5,7 +5,8 @@ const config = {
     USERNAME: 'root',
     PASSWORD: '293196',
     PORT: '3306',
-    HOST: 'localhost'
+    HOST: 'localhost',
+    CHARSET: 'utf8'
   }
 }
 

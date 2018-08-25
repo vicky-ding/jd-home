@@ -20,7 +20,7 @@ module.exports = {
         hot: true,
         open: true,
         inline: true,
-        port: 3000
+        port: 8089
     },
     module: {
         rules: [
@@ -64,7 +64,7 @@ module.exports = {
         new ExtractTextPlugin('css/[name].css?v=[hash:6]'),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './web/src/index.html'
+            template: './web/back/index.html'
         })
     ]
 }

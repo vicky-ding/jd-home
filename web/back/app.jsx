@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.min.css';
-import '../src/asset/style/public.css';
-import '../src/asset/iconfont/style.css';
+import './asset/style/public.css';
+import './asset/iconfont/style.css';
 import HomeContainer from './container/home';
 import { HashRouter, Switch, Redirect, Route } from 'react-router-dom';
 

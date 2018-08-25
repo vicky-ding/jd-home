@@ -4,9 +4,11 @@
   "description": "React project built on the homepage of jd.com",
   "main": "app.js",
   "scripts": {
-    "start": "node script/cli.js web/dist && webpack --progress --colors --config script/webpack.dev.js",
-    "build": "node script/cli.js web/dist && webpack --progress --colors --config webpack.production.js",
-    "server": "webpack-dev-server --config script/webpack.dev.js --inline --hot --open"
+    "start": "node script/cli.js web/dist && webpack --progress --colors --config script/webpack.back.js",
+    "build": "node script/cli.js web/dist && webpack --progress --colors --config script/webpack.front.prod.js",
+    "build:back": "node script/cli.js web/dist && webpack --progress --colors --config script/webpack.back.prod.js",
+    "server": "webpack-dev-server --config script/webpack.front.js --inline --hot --open",
+    "server:back": "webpack-dev-server --config script/webpack.back.js --inline --hot --open"
   },
   "repository": {
     "type": "git",
@@ -34,7 +36,6 @@
     "fs-extra": "^6.0.1",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy": "^1.16.2",
-    "optimize-css-assets-webpack-plugin": "^5.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
