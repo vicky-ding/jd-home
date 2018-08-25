@@ -1,0 +1,7 @@
+{
+  "port": 8080,
+  "fallback": "dist/index.html",
+  "root": {
+    "^\/(js|css|img|test)\/": "dist"
+  }
+}

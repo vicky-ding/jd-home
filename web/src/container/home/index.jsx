@@ -11,7 +11,6 @@ import CheckedList from '../check-list/checklist'
 import hashHistory from 'react-router-dom'
 import Yunying from '../yunying/index'
 import AllGoods from '../all-goods/index'
-
 import { Redirect, Switch, Route, Link } from 'react-router-dom';
 
 export default class Home extends React.Component {

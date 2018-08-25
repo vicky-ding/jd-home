@@ -1,0 +1,38 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/server.js",
+  "scripts": {
+    "start": "node scripts/server.js",
+    "dev": "webpack --config scripts/webpack.dev.js -w",
+    "prod": "webpack --config scripts/webpack.prod.js",
+    "server": "webpack-dev-server --config scripts/webpack.dev.js --inline --hot --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "http-proxy": "^1.16.2",
+    "mime": "^1.6.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.4.1",
+    "webpack-merge": "^4.1.3"
+  }
+}

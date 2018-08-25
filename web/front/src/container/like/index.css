@@ -1,0 +1,53 @@
+#like{
+    background-color: #fff;
+}
+#like p{
+    font-size:14px;
+    color: #7f7f7f;
+    padding-left: 5px;
+}
+.like-content{
+    width: 50%;
+    display: inline-block;
+    word-break: break-all;
+    text-align: center;
+    font-size: 12px;
+}
+.like-content-link,.like-content-info,.like-content-price{
+    width: 95%;
+    display: inline-block;
+}
+.like-content-info{
+    overflow: hidden;
+    text-align: left;
+    line-height: 14px;
+    padding-bottom:5px;
+    border-bottom: 1px solid #ccc;
+}
+.like-content-info span{
+    display: -webkit-box;
+    height: 28px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow:hidden;
+}
+.like-content-price span:first-child{
+    float: left;
+    padding-top:2px;
+    color:#f15353;
+}
+.like-content-price span:last-child{
+    float: right;
+    border:1px solid #ccc;
+    padding: 1px;
+}
+.like-content-price span:after{
+    content:"";
+    display: block;
+    overflow: hidden;
+    clear:both;
+    height: 0;
+}
+.like-content-price span:last-child a{
+    color: #7f7f7f;
+}
