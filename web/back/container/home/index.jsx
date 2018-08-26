@@ -61,7 +61,7 @@ export default class Home extends React.Component {
                     </div>
                     <div className="content">
                         <Switch>
-                            <Redirect from="/home" exact to="/home/info" />
+                            <Redirect from="/home" exact to="/home/otherapp" />
                             <Route path="/home/otherapp" component={OhterApp} />
                             <Route path="/home/swiper" component={Swiper} />
                         </Switch>

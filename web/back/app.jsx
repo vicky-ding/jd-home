@@ -11,6 +11,7 @@ ReactDOM.render(
             <Switch>
                 <Redirect from="/" exact to="/home" />
                 <Route path="/home/:menu" component={HomeContainer} />
+                <Route path="/home" component={HomeContainer} />
             </Switch>
         </HashRouter>,
 document.getElementById('app'));

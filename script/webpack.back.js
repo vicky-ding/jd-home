@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     entry: {
         index: path.resolve('./web/back/app.jsx'),
-        vendor: ['react', 'react-dom', 'babel-polyfill']
+        vendor: ['react', 'react-dom', 'antd', 'babel-polyfill']
     },
     output: {
         path: path.resolve('./web/dist'),
