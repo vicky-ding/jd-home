@@ -5,9 +5,9 @@ const otherAppModel = require('../model/otherapp')
 
 router.all('/addOtherApp', async (ctx, next) => {
   try {
-    let title = util.getString(ctx.request.body, 'title', true)
-    let url = util.getString(ctx.request.body, 'url', true)
-    let icon = util.getString(ctx.request.body, 'icon', true)
+    let title = util.getString(ctx.request.body, 'title', true, true)
+    let url = util.getString(ctx.request.body, 'url', true, true)
+    let icon = util.getString(ctx.request.body, 'icon', true, true)
     let active = util.getBoolean(ctx.request.body, 'active', true)
     let orderval = util.getNumber(ctx.request.body, 'orderval', true)
     let result = await otherAppModel.insertOtherapp(title, url, icon, active ? 1 : 0, orderval)

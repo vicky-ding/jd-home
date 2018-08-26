@@ -20,8 +20,8 @@ app.use(async (ctx, next) => {
   ctx.err = function (err) {
     console.error(err)
     ctx.body = {
-      stat: STAT.SERVER_EXCEPTION,
-      message: JSON.stringify(err) || '服务端异常'
+      message: err || '服务端异常',
+      stat: STAT.SERVER_EXCEPTION
     }
   }
 

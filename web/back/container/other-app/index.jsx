@@ -110,7 +110,7 @@ export default class OtherApp extends React.Component {
             if (result.stat === 'OK') {
                 this.setState({ list: result.data.list });
             } else {
-                message.error(result.data.message || '出错了');
+                message.error(result.message || '出错了');
             }
             this.setState({loading: false});
         }).catch(err => {
@@ -128,7 +128,7 @@ export default class OtherApp extends React.Component {
                 message.success('添加成功~');
                 this.getListData();
             } else {
-                message.error(result.data.message || '出错了');
+                message.error(result.message || '出错了');
             }
         }).catch(err => message.error('网络出了问题，请重新尝试~'));
     }

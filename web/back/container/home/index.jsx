@@ -38,16 +38,16 @@ export default class Home extends React.Component {
                 </Header>
                 <div className="container-box">
                     <div className={classnames('sidebar', {'hide-sidebar': !this.state.showSidebar})}>
-                        <Menu mode="inline" 
+                        <Menu mode="inline"
+                            defaultOpenKeys={['sub1', 'sub2']}
                             className="sidebar-menu"
-                            defaultOpenKeys={['sub1']}
-                            defaultSelectedKeys={['1']} >
+                            defaultSelectedKeys={[this.props.match.params.menu]} >
                             <Menu.SubMenu key="sub1"
                                 title={<span><Icon type="appstore" /><span>导航管理</span></span>}>
-                                <Menu.Item key="1">
+                                <Menu.Item key="otherapp">
                                     <Link to="/home/otherapp">导航信息</Link>
                                 </Menu.Item>
-                                <Menu.Item key="2">
+                                <Menu.Item key="swiper">
                                     <Link to="/home/swiper">轮播图信息</Link>
                                 </Menu.Item>
                             </Menu.SubMenu>
