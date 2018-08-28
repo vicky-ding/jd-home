@@ -25,6 +25,16 @@ exports.insertOtherapp = (title, url, icon, active, orderval) => {
 }
 
 /**
+ * 编辑一条头部导航信息
+ */
+exports.editOtherApp = (id, title, url, icon, active, orderval) => {
+  let sql = `UPDATE \`${TABLE_NAME}\` SET
+  \`title\` = ?, \`url\` = ?, \`icon\` = ?, \`active\` = ?, \`orderval\` = ?
+  WHERE \`id\` = ?;`
+  return MySql.query(sql, [url, title, icon, active, orderval, id])
+}
+
+/**
  * 删除一条头部导航信息
  * @param {*} id 
  */

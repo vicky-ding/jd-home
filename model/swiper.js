@@ -24,7 +24,7 @@ exports.insertSwiper = (url, icon, active, orderval) => {
 }
 
 /**
- * 新增一条头部导航信息
+ * 编辑一条头部导航信息
  */
 exports.editSwiper = (id, url, icon, active, orderval) => {
   let sql = `UPDATE \`${TABLE_NAME}\` SET

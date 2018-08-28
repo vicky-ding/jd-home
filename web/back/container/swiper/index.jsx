@@ -75,7 +75,7 @@ export default class Swiper extends React.Component {
                     title={this.state.isAdd?'添加记录':'编辑记录'}
                     onCancel={() => this.setState({ visible: false })}
                     onOk={this.state.isAdd?this.addSwiper.bind(this):this.editSwiper.bind(this)}>
-                    <Form>
+                    <Form>  
                         <div className="flex">
                             <div className="form-left">
                                 <div className="flex mb-20">
