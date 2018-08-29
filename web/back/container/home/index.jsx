@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import Swiper from '../swiper';
 import OhterApp from '../other-app';
 import Header from '../../component/header';
+import Spike from '../spike';
+import Like from '../like';
 import { Menu, Icon } from 'antd';
 import { Redirect, Switch, Route, Link } from 'react-router-dom';
 
@@ -50,6 +52,12 @@ export default class Home extends React.Component {
                                 <Menu.Item key="swiper">
                                     <Link to="/home/swiper">轮播图信息</Link>
                                 </Menu.Item>
+                                <Menu.Item key="spike">
+                                    <Link to="/home/spike">秒杀商品信息</Link>
+                                </Menu.Item>
+                                <Menu.Item key="like">
+                                    <Link to="/home/like">猜你喜欢商品信息</Link>
+                                </Menu.Item>
                             </Menu.SubMenu>
                             <Menu.SubMenu key="sub2"
                                 title={<span><Icon type="setting" /><span>商品审核</span></span>}>
@@ -64,6 +72,8 @@ export default class Home extends React.Component {
                             <Redirect from="/home" exact to="/home/otherapp" />
                             <Route path="/home/otherapp" component={OhterApp} />
                             <Route path="/home/swiper" component={Swiper} />
+                            <Route path="/home/spike" component={Spike} />
+                            <Route path="/home/like" component={Like} />
                         </Switch>
                     </div>
                 </div>

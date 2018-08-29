@@ -1,14 +1,17 @@
 import './index.css';
 import * as React from 'react';
 import http from '../../util/http';
-import { Input, InputNumber, Switch, Button, Table, message, Breadcrumb, Modal, Form, Select } from 'antd';
 
-export default class OtherApp extends React.Component {
+import { Breadcrumb, Modal, Form, Input, message, InputNumber, Switch, Select, Button, Table } from 'antd'
+
+export default class Like extends React.Component {
     state = {
         list: [],
+        visible: false,
         loading: false,
         form: {
-            title: '',
+            description:'',
+            price:'',
             url: '',
             icon: '',
             active: false,
@@ -19,10 +22,14 @@ export default class OtherApp extends React.Component {
     }
 
     columns = [{
-        title: '名称',
-        align: 'center',
-        dataIndex: 'title'
-    }, {
+        title:'商品描述',
+        align:'center',
+        dataIndex:'description'
+    },{
+        title:'商品价格',
+        align:'center',
+        dataIndex:'price'
+    },{
         title: '排序值',
         align: 'center',
         dataIndex: 'orderval'
@@ -35,13 +42,12 @@ export default class OtherApp extends React.Component {
         align: 'center',
         render: row => <img style={{ width: 100, height: 100 }} src={row.icon} />
     }, {
-        width: 300,
+        width: 250,
         title: '跳转链接',
         align: 'center',
-        dataIndex: 'url',
-        render: text => <a href="#">{text}</a>
+        render: row => <a href={row.url} target="_blank">{row.url}</a>
     }, {
-        width: 300,
+        width: 250,
         title: '图像链接',
         align: 'center',
         dataIndex: 'icon'
@@ -51,12 +57,15 @@ export default class OtherApp extends React.Component {
         align: 'center',
         render: row => (
             <div>
-                <Button style={{ marginLeft: 10 }} size='small' onClick={this.openDialog.bind(this, false, row)}>编辑</Button>
-                <Button style={{ marginLeft: 10 }} type='danger' size='small' onClick={this.delete.bind(this, row)}>删除</Button>
+                <Button style={{ marginLeft: 10 }} size="small" onClick={this.openDialog.bind(this, false, row)}>编辑</Button>
+                <Button style={{ marginLeft: 10 }} type="danger" size="small" onClick={this.delete.bind(this, row)}>删除</Button>
             </div>
+            // <div>
+            //     <Button style={{ marginLeft: 10 }} size="small">编辑</Button>
+            //     <Button style={{ marginLeft: 10 }} type="danger" size="small">删除</Button>
+            // </div>
         )
     }]
-
     componentWillMount() {
         this.getListData();
     }
@@ -64,23 +73,28 @@ export default class OtherApp extends React.Component {
     render() {
         return (
             <div className="goods-container">
-                <Breadcrumb style={{ marginBottom: 20 }}>
-                    <Breadcrumb.Item>导航管理</Breadcrumb.Item>
-                    <Breadcrumb.Item>导航信息</Breadcrumb.Item>
+                <Breadcrumb>
+                    <Breadcrumb.Item>商品管理</Breadcrumb.Item>
+                    <Breadcrumb.Item>猜你喜欢</Breadcrumb.Item>
                 </Breadcrumb>
                 <Modal
                     okText='确定'
-                    cancelText="取消"
+                    cancelText='取消'
                     visible={this.state.visible}
-                    title={this.state.isAdd ? '添加记录' : '编辑记录'}
+                    title={this.state.isAdd ? '添加记录' : '删除记录'}
                     onCancel={() => this.setState({ visible: false })}
-                    onOk={this.state.isAdd ? this.addOtherApp.bind(this) : this.editOtherApp.bind(this)}>
+                    onOk={this.state.isAdd?this.addLikeGoods.bind(this):this.editLikeGoods.bind(this)}
+                >
                     <Form>
                         <div className="flex">
                             <div className="form-left">
                                 <div className="flex mb-20">
-                                    <label>名称：</label>
-                                    <Input value={this.state.form.title} style={{ flex: 1 }} placeholder="请输入名称" onChange={e => this.setFormState('title', e.target.value)} />
+                                    <label>商品描述：</label>
+                                    <Input value={this.state.form.description} style={{ flex: 1 }} placeholder="请输入名称" onChange={e => this.setFormState('description', e.target.value)} />
+                                </div>
+                                <div className="flex mb-20">
+                                    <label>商品价格：</label>
+                                    <Input value={this.state.form.price} style={{ flex: 1 }} placeholder="请输入名称" onChange={e => this.setFormState('price', e.target.value)} />
                                 </div>
                                 <div className="flex mb-20">
                                     <label>跳转链接：</label>
@@ -119,48 +133,15 @@ export default class OtherApp extends React.Component {
                     </Select>
                     <Button className="ml-20" onClick={this.getListData.bind(this)}>查询</Button>
                     <Button className="ml-20" onClick={this.openDialog.bind(this, true)}>添加</Button>
+                    {/* <Button className="ml-20" >查询</Button>
+                    <Button className="ml-20" >添加</Button> */}
                 </div>
-
-
-                {/* <div className="block-box flex">
-                    <div className="form-left">
-                        <div className="mb-20">
-                            <label>名称：</label>
-                            <Input value={this.state.form.title} style={{ width: 200 }} placeholder="请输入名称" onChange={e => this.setFormState('title', e.target.value)} />
-                            <label style={{ marginLeft: 20 }}>排序值：</label>
-                            <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
-                        </div>
-                        <div className="flex mb-20">
-                            <label>跳转链接：</label>
-                            <Input value={this.state.form.url} style={{ flex: 1 }} placeholder="请输入跳转链接" onChange={e => this.setFormState('url', e.target.value)} />
-                        </div>
-                        <div className="flex mb-20">
-                            <label>图像链接：</label>
-                            <Input value={this.state.form.icon} style={{ flex: 1 }} placeholder="请输入图像链接" onChange={e => this.setFormState('icon', e.target.value)} />
-                        </div>
-                        <div className="flex-between mt-20">
-                            <div>
-                                <label>是否上架：</label>
-                                <Switch checked={this.state.form.active} onChange={checked => this.setFormState('active', checked)} />
-                            </div>
-                            <div>
-                                <Button onClick={this.addOtherApp.bind(this)} type="primary" className="mr-20">添加</Button>
-                                <Button>清空</Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-right">
-                        <div className="preview">
-                            {this.state.form.icon && <img src={this.state.form.icon} />}
-                            <p>{this.state.form.title}</p>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="block-box">
                     <Table bordered loading={this.state.loading} rowKey={(record, index) => index} columns={this.columns} dataSource={this.state.list} />
                 </div>
+
             </div>
-        )
+        )   
     }
 
     setFormState(key, val) {
@@ -176,7 +157,7 @@ export default class OtherApp extends React.Component {
             params.active = this.state.active;
         }
         http.post({
-            url: '/otherapp/listAll',
+            url: '/like/listAll',
             data: params
         }).then(result => {
             if (result.stat === 'OK') {
@@ -191,11 +172,12 @@ export default class OtherApp extends React.Component {
         });
     }
     // 添加
-    addOtherApp() {
+    addLikeGoods() {
         http.post({
-            url: '/otherapp/addOtherApp',
+            url: '/like/addLikeGoods',
             data: this.state.form
         }).then(result => {
+            console.log(result)
             if (result.stat === 'OK') {
                 message.success('添加成功~');
                 this.getListData();
@@ -215,7 +197,7 @@ export default class OtherApp extends React.Component {
             cancelText: '取消',
             onOk() {
                 http.post({
-                    url: '/otherapp/deleteById',
+                    url: '/like/deleteById',
                     data: {
                         id: row.id
                     }
@@ -233,9 +215,9 @@ export default class OtherApp extends React.Component {
     }
 
     // 编辑
-    editOtherApp() {
+    editLikeGoods() {
         http.post({
-            url: '/otherapp/editOtherApp',
+            url: '/like/editLikeGoods',
             data: this.state.form
         }).then(result => {
             if (result.stat === 'OK') {
@@ -265,5 +247,6 @@ export default class OtherApp extends React.Component {
             visible: true,
             form: form
         })
+        console.log('openDialog已执行')
     }
 }

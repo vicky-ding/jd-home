@@ -24,7 +24,8 @@
     width: 56px;
     height: 21px;
     display: inline-block;
-    background: url(../../asset/img/jd-sprites.png);
+    /* background: url(../../asset/img/jd-sprites.png); */
+    background-color: url('../../asset/img/jd-sprites.png');
     background-size: 200px 200px;
     background-position: 0 -109px;
 }

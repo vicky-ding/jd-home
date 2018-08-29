@@ -14,4 +14,4 @@ ReactDOM.render(
                 <Route path="/home" component={HomeContainer} />
             </Switch>
         </HashRouter>,
-document.getElementById('app'));
+document.getElementById('app')); 
