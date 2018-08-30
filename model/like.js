@@ -1,10 +1,10 @@
 const MySql = require('../lib/mysql')
 
-const TABLE_NAME = 'likeGoods'
+const TABLE_NAME = 'like-goods'
 const TABLE_SQL = `create table if not exists \`${TABLE_NAME}\` (
   id INT NOT NULL AUTO_INCREMENT,
   description VARCHAR(255) NOT NULL COMMENT '商品描述',
-  orderval INT NOT NULL DEFAULT 0 COMMENT '商品价格',
+  price INT NOT NULL DEFAULT 0 COMMENT '商品价格',
   url VARCHAR(255) NOT NULL COMMENT '商品跳转链接',
   icon VARCHAR(255) NOT NULL COMMENT '商品图像',
   active INT NOT NULL DEFAULT 0 COMMENT '是否上架',
