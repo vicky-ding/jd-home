@@ -12,7 +12,7 @@ export default class ComponentOtherapp extends Component {
 
     componentDidMount(){
         http.post({
-            url: '/otherapp/listAll'
+            url: '/otherapp/jdListAll'
         }).then(result => {
             if (result.stat === 'OK') {
                 this.setState({ otherapp: result.data.list });

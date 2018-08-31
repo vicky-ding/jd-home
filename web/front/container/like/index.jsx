@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import http from '../utils/http'
 import jsonp from '../utils/jsonp.js'
 
 export default class ComponentLike extends Component {
@@ -10,14 +11,26 @@ export default class ComponentLike extends Component {
         }
     }
     componentDidMount(){
-        jsonp(this.props.source,'','callback',(data)=>{
-            if(data.status){
-                this.setState({
-                    data: data.data
-                })
+        http.post({
+            url:'/like/listAll'
+        }).then(result =>{
+            if(result.stat === 'OK'){
+                this.setState({data: result.data.list})
+            }else{
+                console.log(result.data.message || '出错了')
             }
-
+        }).catch(err=>{
+            console.log('网络出了问题，请重新尝试~')
         })
+        
+        // jsonp(this.props.source,'','callback',(data)=>{
+        //     if(data.status){
+        //         this.setState({
+        //             data: data.data
+        //         })
+        //     }
+
+        // })
     }
     render() {
         let countId=0;

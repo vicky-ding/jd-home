@@ -39,6 +39,24 @@ router.all('/listAll', async (ctx, next) => {
   }
 })
 
+router.all('/jdListAll', async (ctx, next) => {
+  try {
+    let list = []
+    if (ctx.request.body.active == '0' || ctx.request.body.active == '1') {
+      let active = util.getNumber(ctx.request.body, 'active')
+      list = await otherAppModel.listByActive(active)
+    } else {
+      list = await otherAppModel.listAll()
+    }
+    ctx.body = {
+      data: { list },
+      stat: STAT.STAT_OK
+    }
+  } catch (err) {
+    ctx.err(err)
+  }
+})
+
 // router.all('/deleteById', async (ctx, next) => {
 //   try {
 //     let id = util.getNumber(ctx.request.body, 'id', true)

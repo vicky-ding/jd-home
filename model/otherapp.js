@@ -57,7 +57,7 @@ exports.deleteById = async id => {
 // }
 
 /**
- * 查找所有的信息
+ * 后台查找所有的信息
  */
 exports.listAll = () => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`active\` DESC, \`orderval\` ASC;`
@@ -65,9 +65,16 @@ exports.listAll = () => {
 }
 
 /**
- * 查找所有的信息
+ * 后台查找所有的信息
  */
 exports.listByActive = active => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` where \`active\` = ? ORDER BY \`active\` DESC, \`orderval\` ASC;`
   return MySql.query(sql, [active])
+}
+/**
+ * 前台查找所有的信息
+ */
+exports.jdListAll = () => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` where active = 1  ORDER BY \`orderval\` ASC LIMIT 0,8;`
+  return MySql.query(sql, [])
 }

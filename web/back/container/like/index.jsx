@@ -104,6 +104,10 @@ export default class Like extends React.Component {
                                     <label>图像链接：</label>
                                     <Input value={this.state.form.icon} style={{ flex: 1 }} placeholder="请输入图像链接" onChange={e => this.setFormState('icon', e.target.value)} />
                                 </div>
+                                <div className="flex mb-20">
+                                    <label>相似商品链接</label>
+                                    <Input value={this.state.form.icon} style={{ flex: 1 }} placeholder="请输入图像链接" onChange={e => this.setFormState('icon', e.target.value)} />
+                                </div>
                                 <div className="flex-between mt-20">
                                     <div>
                                         <label>排序值：</label>
