@@ -39,15 +39,10 @@ router.all('/listAll', async (ctx, next) => {
   }
 })
 
-router.all('/jdListAll', async (ctx, next) => {
+router.all('/jd.listAll', async (ctx, next) => {
   try {
-    let list = []
-    if (ctx.request.body.active == '0' || ctx.request.body.active == '1') {
-      let active = util.getNumber(ctx.request.body, 'active')
-      list = await otherAppModel.listByActive(active)
-    } else {
-      list = await otherAppModel.listAll()
-    }
+    let isActive = 1;
+    let list = await otherAppModel.jdListAll(isActive, 0, 8)
     ctx.body = {
       data: { list },
       stat: STAT.STAT_OK

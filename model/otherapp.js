@@ -71,10 +71,14 @@ exports.listByActive = active => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` where \`active\` = ? ORDER BY \`active\` DESC, \`orderval\` ASC;`
   return MySql.query(sql, [active])
 }
+
 /**
  * 前台查找所有的信息
+ * @param {*} active 是否上架
+ * @param {*} start 数据中开始位置
+ * @param {*} end 数据中结束位置
  */
-exports.jdListAll = () => {
-  let sql = `SELECT * FROM \`${TABLE_NAME}\` where active = 1  ORDER BY \`orderval\` ASC LIMIT 0,8;`
-  return MySql.query(sql, [])
+exports.jdListAll = (active, start, end) => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` where \`active\` = ? ORDER BY \`orderval\` ASC LIMIT ?, ?;`
+  return MySql.query(sql, [active, start, end])
 }
