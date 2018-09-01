@@ -122,7 +122,6 @@ export default class OtherApp extends React.Component {
                         <Select.Option value="0">否</Select.Option>
                     </Select>
                     <Button className="ml-20" onClick={this.getListData.bind(this)}>查询</Button>
-                    {/* <Button className="ml-20" onClick={this.toSelctChange.bind(this)}>查询</Button> */}
                     <Button className="ml-20" onClick={this.openDialog.bind(this, true)}>添加</Button>
                 </div>
 
@@ -199,33 +198,6 @@ export default class OtherApp extends React.Component {
             message.error('网络出了问题，请重新尝试~')
         });
     }
-
-
-    // toSelctChange(current = 1, pageSize = 10) {
-    //     this.setState({ loading: true });
-    //     // this.setState({current: current});
-    //     // this.setState({pageSize: pageSize});
-    //     let params = {};
-    //     console.log(',,,')
-    //     // params.active = this.state.active,
-    //     params.current = this.state.current,
-    //     params.pageSize = this.state.pageSize;
-
-    //     http.post({
-    //         url: '/otherapp/jd.pageList',
-    //         data: params
-    //     }).then(result => {
-    //         if (result.stat === 'OK') {
-    //             this.setState({ list: result.data.list, total: result.data.total });
-    //         } else {
-    //             message.error(result.message || '出错了');
-    //         }
-    //         this.setState({ loading: false });
-    //     }).catch(err => {
-    //         this.setState({ loading: false });
-    //         message.error('网络出了问题，请重新尝试~')
-    //     });
-    // }
 
     // 添加
     addOtherApp() {
