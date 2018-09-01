@@ -132,15 +132,11 @@ export default class OtherApp extends React.Component {
                         pagination={{
                             total: this.state.total,
                             pageSize: this.state.pageSize,
-                            defaultPageSize: this.state.pageSize,
-                            showSizeChanger: true,
+                            defaultCurrent: this.state.current,
+                            showTotal: total => `共 ${total} 条`,
                             onShowSizeChange(current, pageSize) {
-                                // this.toSelctChange(current, pageSize)
                                 this.getListData(current, pageSize)
                             }
-                            // onChange(current){
-                            //     this.gotoThisPage(current,this.state.pageSize)
-                            // }
                         }} />
                 </div>
             </div>

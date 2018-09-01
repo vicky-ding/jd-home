@@ -59,6 +59,9 @@ router.all('/PageListAll', async (ctx, next) => {
       list = await otherAppModel.getPageList(start,offset)
       total = await otherAppModel.getPageListTotal()
     }
+    if (total.length > 0) {
+      total = total[0].total
+    }
     ctx.body = {
       data: { list, total },
       stat: STAT.STAT_OK
