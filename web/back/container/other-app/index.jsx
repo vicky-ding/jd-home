@@ -6,6 +6,9 @@ import { Input, InputNumber, Switch, Button, Table, message, Breadcrumb, Modal, 
 export default class OtherApp extends React.Component {
     state = {
         list: [],
+        total: 0,        //总共几条数据
+        pageSize: 10,     //一页显示几条数据
+        current: 1,
         loading: false,
         form: {
             title: '',
@@ -17,7 +20,6 @@ export default class OtherApp extends React.Component {
         active: '',
         isAdd: true
     }
-
     columns = [{
         title: '名称',
         align: 'center',
@@ -58,7 +60,9 @@ export default class OtherApp extends React.Component {
     }]
 
     componentWillMount() {
-        this.getListData();
+        // this.getListData();
+        this.getListData(this.state.current, this.state.pagination);
+        // this.toSelctChange(this.state.current, this.state.pagination);
     }
 
     render() {
@@ -118,46 +122,26 @@ export default class OtherApp extends React.Component {
                         <Select.Option value="0">否</Select.Option>
                     </Select>
                     <Button className="ml-20" onClick={this.getListData.bind(this)}>查询</Button>
+                    {/* <Button className="ml-20" onClick={this.toSelctChange.bind(this)}>查询</Button> */}
                     <Button className="ml-20" onClick={this.openDialog.bind(this, true)}>添加</Button>
                 </div>
 
-
-                {/* <div className="block-box flex">
-                    <div className="form-left">
-                        <div className="mb-20">
-                            <label>名称：</label>
-                            <Input value={this.state.form.title} style={{ width: 200 }} placeholder="请输入名称" onChange={e => this.setFormState('title', e.target.value)} />
-                            <label style={{ marginLeft: 20 }}>排序值：</label>
-                            <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
-                        </div>
-                        <div className="flex mb-20">
-                            <label>跳转链接：</label>
-                            <Input value={this.state.form.url} style={{ flex: 1 }} placeholder="请输入跳转链接" onChange={e => this.setFormState('url', e.target.value)} />
-                        </div>
-                        <div className="flex mb-20">
-                            <label>图像链接：</label>
-                            <Input value={this.state.form.icon} style={{ flex: 1 }} placeholder="请输入图像链接" onChange={e => this.setFormState('icon', e.target.value)} />
-                        </div>
-                        <div className="flex-between mt-20">
-                            <div>
-                                <label>是否上架：</label>
-                                <Switch checked={this.state.form.active} onChange={checked => this.setFormState('active', checked)} />
-                            </div>
-                            <div>
-                                <Button onClick={this.addOtherApp.bind(this)} type="primary" className="mr-20">添加</Button>
-                                <Button>清空</Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="form-right">
-                        <div className="preview">
-                            {this.state.form.icon && <img src={this.state.form.icon} />}
-                            <p>{this.state.form.title}</p>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="block-box">
-                    <Table bordered loading={this.state.loading} rowKey={(record, index) => index} columns={this.columns} dataSource={this.state.list} />
+                    <Table bordered loading={this.state.loading} rowKey={(record, index) => index}
+                        columns={this.columns} dataSource={this.state.list}
+                        pagination={{
+                            total: this.state.total,
+                            pageSize: this.state.pageSize,
+                            defaultPageSize: this.state.pageSize,
+                            showSizeChanger: true,
+                            onShowSizeChange(current, pageSize) {
+                                // this.toSelctChange(current, pageSize)
+                                this.getListData(current, pageSize)
+                            }
+                            // onChange(current){
+                            //     this.gotoThisPage(current,this.state.pageSize)
+                            // }
+                        }} />
                 </div>
             </div>
         )
@@ -167,29 +151,83 @@ export default class OtherApp extends React.Component {
         this.state.form[key] = val;
         this.setState({ form: this.state.form });
     }
+    // 一开始的查询操作
+    // getListData() {
+    //     this.setState({ loading: true });
+    //     let params = {};
+    //     if (this.state.active !== '') {
+    //         params.active = this.state.active;
+    //     }
+    //     http.post({
+    //         url: '/otherapp/listAll',
+    //         data: params
+    //     }).then(result => {
+    //         if (result.stat === 'OK') {
+    //             let total = result.data.list.length
+    //             this.setState({ list: result.data.list, total: total });
+    //         } else {
+    //             message.error(result.message || '出错了');
+    //         }
+    //         this.setState({ loading: false });
+    //     }).catch(err => {
+    //         this.setState({ loading: false });
+    //         message.error('网络出了问题，请重新尝试~')
+    //     });
+    // }
 
-    // 查询
-    getListData() {
-        this.setState({loading: true});
+    // 结合分页的查询操作
+    getListData(current = 1, pageSize = 10) {
+        this.setState({ loading: true });
         let params = {};
         if (this.state.active !== '') {
             params.active = this.state.active;
         }
+        params.current = this.state.current,
+        params.pageSize = this.state.pageSize;
+
         http.post({
-            url: '/otherapp/listAll',
+            url: '/otherapp/PageListAll',
             data: params
         }).then(result => {
             if (result.stat === 'OK') {
-                this.setState({ list: result.data.list });
+                this.setState({ list: result.data.list, total: result.data.total });
             } else {
                 message.error(result.message || '出错了');
             }
-            this.setState({loading: false});
+            this.setState({ loading: false });
         }).catch(err => {
-            this.setState({loading: false});
+            this.setState({ loading: false });
             message.error('网络出了问题，请重新尝试~')
         });
     }
+
+
+    // toSelctChange(current = 1, pageSize = 10) {
+    //     this.setState({ loading: true });
+    //     // this.setState({current: current});
+    //     // this.setState({pageSize: pageSize});
+    //     let params = {};
+    //     console.log(',,,')
+    //     // params.active = this.state.active,
+    //     params.current = this.state.current,
+    //     params.pageSize = this.state.pageSize;
+
+    //     http.post({
+    //         url: '/otherapp/jd.pageList',
+    //         data: params
+    //     }).then(result => {
+    //         if (result.stat === 'OK') {
+    //             this.setState({ list: result.data.list, total: result.data.total });
+    //         } else {
+    //             message.error(result.message || '出错了');
+    //         }
+    //         this.setState({ loading: false });
+    //     }).catch(err => {
+    //         this.setState({ loading: false });
+    //         message.error('网络出了问题，请重新尝试~')
+    //     });
+    // }
+
     // 添加
     addOtherApp() {
         http.post({

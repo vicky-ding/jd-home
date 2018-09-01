@@ -30,8 +30,10 @@ router.all('/listAll', async (ctx, next) => {
     } else {
       list = await otherAppModel.listAll()
     }
+    let total = await otherAppModel.getPageListTotal()
+
     ctx.body = {
-      data: { list },
+      data: { list, total },
       stat: STAT.STAT_OK
     }
   } catch (err) {
@@ -39,6 +41,55 @@ router.all('/listAll', async (ctx, next) => {
   }
 })
 
+// 分页结合查询
+
+router.all('/PageListAll', async (ctx, next) => {
+  try {
+    let list = [],
+        total,
+        current = util.getNumber(ctx.request.body,'current'),
+        pageSize = util.getNumber(ctx.request.body,'pageSize'),
+        [start,offset] = [(current-1)*pageSize, pageSize];
+
+    if (ctx.request.body.active == '0' || ctx.request.body.active == '1') {
+      let active = util.getNumber(ctx.request.body, 'active')
+      list = await otherAppModel.getPageListByActive(active,start,offset)
+      total = await otherAppModel.getPageListTotalByActive(active)
+    } else {
+      list = await otherAppModel.getPageList(start,offset)
+      total = await otherAppModel.getPageListTotal()
+    }
+    ctx.body = {
+      data: { list, total },
+      stat: STAT.STAT_OK
+    }
+  } catch (err) {
+    ctx.err(err)
+  }
+})
+
+
+// 分页接口
+router.all('/jd.pageList', async (ctx, next) => {
+  try {
+    let isActive = 1;
+    let current = util.getNumber(ctx.request.body,'current');
+    let pageSize = util.getNumber(ctx.request.body,'pageSize');
+    let [start,offset] = [(current-1)*pageSize, pageSize]
+
+    // console.log(start,end)
+    let list = await otherAppModel.getPageList(start,offset)
+    let total = await otherAppModel.getPageListTotal()
+    ctx.body = {
+      data: { list,total,start,current,pageSize },
+      stat: STAT.STAT_OK
+    }
+  } catch (err) {
+    ctx.err(err)
+  }
+})
+
+// 前端接口
 router.all('/jd.listAll', async (ctx, next) => {
   try {
     let isActive = 1;
@@ -51,19 +102,6 @@ router.all('/jd.listAll', async (ctx, next) => {
     ctx.err(err)
   }
 })
-
-// router.all('/deleteById', async (ctx, next) => {
-//   try {
-//     let id = util.getNumber(ctx.request.body, 'id', true)
-//     let result = await swiperModel.deleteById(id)
-//     ctx.body = {
-//       data: { result },
-//       stat: STAT.STAT_OK
-//     }
-//   } catch (err) {
-//     ctx.err(err)
-//   }
-// })
 
 router.all('/deleteById', async (ctx, next) => {
   try {

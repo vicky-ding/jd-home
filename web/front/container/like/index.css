@@ -12,6 +12,7 @@
     word-break: break-all;
     text-align: center;
     font-size: 12px;
+    border-radius:3px;
 }
 .like-content-link,.like-content-info,.like-content-price{
     width: 95%;
@@ -40,6 +41,7 @@
     float: right;
     border:1px solid #ccc;
     padding: 1px;
+    border-radius:5px;
 }
 .like-content-price span:after{
     content:"";

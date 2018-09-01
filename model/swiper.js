@@ -43,7 +43,7 @@ exports.deleteById = id => {
 }
 
 /**
- * 查找所有的信息
+ * 查找后台所有的信息
  */
 exports.listAll = () => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`active\` DESC, \`orderval\` ASC;`
@@ -51,9 +51,17 @@ exports.listAll = () => {
 }
 
 /**
- * 查找所有的信息
+ * 查找后台所有的信息
  */
 exports.listByActive = active => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` where \`active\` = ? ORDER BY \`active\` DESC, \`orderval\` ASC;`
   return MySql.query(sql, [active])
+}
+
+/**
+ * 查找后台所有的信息
+ */
+exports.jdListAll = (active, start,end) => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`active\`=? DESC, \`orderval\` ASC LIMIT start,end;`
+  return MySql.query(sql, [active, start,end])
 }

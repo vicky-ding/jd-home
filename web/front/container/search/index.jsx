@@ -27,7 +27,6 @@ export default class ComponentSearch extends Component {
                     <div className='search-logo pa'>
                         <i></i>
                     </div>
-
                     <div className='search-body pr'>
                         <span className='search-body-bar pa'></span>
                         <input placeholder='全场畅饮，部分低至99减50' type='text'/>
