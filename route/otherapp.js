@@ -31,7 +31,6 @@ router.all('/listAll', async (ctx, next) => {
       list = await otherAppModel.listAll()
     }
     let total = await otherAppModel.getPageListTotal()
-
     ctx.body = {
       data: { list, total },
       stat: STAT.STAT_OK
