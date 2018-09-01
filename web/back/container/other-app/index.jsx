@@ -134,8 +134,11 @@ export default class OtherApp extends React.Component {
                             pageSize: this.state.pageSize,
                             defaultCurrent: this.state.current,
                             showTotal: total => `共 ${total} 条`,
-                            onShowSizeChange(current, pageSize) {
-                                this.getListData(current, pageSize)
+                            onChange: (current, pageSize) => {
+                                this.setState({
+                                    current: current,
+                                    pageSize: pageSize
+                                }, () => this.getListData(current, pageSize))
                             }
                         }} />
                 </div>
@@ -172,7 +175,7 @@ export default class OtherApp extends React.Component {
     // }
 
     // 结合分页的查询操作
-    getListData(current = 1, pageSize = 10) {
+    getListData() {
         this.setState({ loading: true });
         let params = {};
         if (this.state.active !== '') {
