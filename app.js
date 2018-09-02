@@ -18,7 +18,8 @@ app.use(bodyParser({        //bodyParser插件  将前端参数格式化
 app.use(async (ctx, next) => {
   var requestId = uuid.v4()  //uuid生成唯一的字符串, v4随机生成，v1按照时间戳生成
   ctx.err = function (err) {
-    console.error(err)
+    console.dir(err)
+    err = err.message ? err.message : err
     ctx.body = {
       message: err || '服务端异常',
       stat: STAT.SERVER_EXCEPTION
