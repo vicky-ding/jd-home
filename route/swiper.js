@@ -77,15 +77,16 @@ router.all('/jd.pageListAll', async (ctx, next) => {
         start = (current - 1) * pageSize;
     if (ctx.request.body.active == '0' || ctx.request.body.active == '1') {
       let active = util.getNumber(ctx.request.body, 'active')
-      list = await swiperModel.getPageListByActive(active, start, offset)
+      list = await swiperModel.getPageListByActive(active, start, pageSize)
       total = await swiperModel.getPageListTotalByActive(active)
     } else {
-      list = await swiperModel.getPageList(start, offset)
+      list = await swiperModel.getPageList(start, pageSize)
       total = await swiperModel.getPageListTotal()
     }
     if (total.length > 0) {
       total = total[0].total
     }
+
     ctx.body = {
       data: { list, total },
       stat: STAT.STAT_OK

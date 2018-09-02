@@ -63,7 +63,7 @@ exports.listByActive = active => {
  * 后台分页查找所有的信息接口,全部信息中取某一页
  */
 exports.getPageList = (start,offset) =>{
-  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\ = ? ORDER BY \`id\` ASC LIMIT ?,?;`
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`id\` ASC LIMIT ?, ?;`
   return MySql.query(start, offset)
 }
 
@@ -76,7 +76,7 @@ exports.getPageListByActive = (active, start, offset) =>{
 // 得到全部数据的条数
 exports.getPageListTotal = ()=>{
   let sql = `SELECT COUNT(*) AS \`total\` FROM \`${TABLE_NAME}\`;`
-  return MySql.query(sql)
+  return MySql.query(sql, [])
 }
 
 // 依据上架状态查询数据数目
