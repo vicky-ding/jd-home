@@ -2,6 +2,7 @@ const util = require('../lib/util')
 const STAT = require('../lib/stat')
 const router = require('koa-router')()
 const otherAppModel = require('../model/otherapp')
+const PARAM = require('../lib/configParam')
 
 router.all('/addOtherApp', async (ctx, next) => {
   try {
@@ -41,7 +42,6 @@ router.all('/listAll', async (ctx, next) => {
 })
 
 // 分页结合查询
-
 router.all('/PageListAll', async (ctx, next) => {
   try {
     let list = [],
@@ -71,31 +71,31 @@ router.all('/PageListAll', async (ctx, next) => {
 })
 
 
-// 分页接口
-router.all('/jd.pageList', async (ctx, next) => {
-  try {
-    let isActive = 1;
-    let current = util.getNumber(ctx.request.body,'current');
-    let pageSize = util.getNumber(ctx.request.body,'pageSize');
-    let [start,offset] = [(current-1)*pageSize, pageSize]
+// // 分页接口
+// router.all('/jd.pageList', async (ctx, next) => {
+//   try {
+//     let isActive = 1;
+//     let current = util.getNumber(ctx.request.body,'current');
+//     let pageSize = util.getNumber(ctx.request.body,'pageSize');
+//     let [start,offset] = [(current-1)*pageSize, pageSize]
 
-    // console.log(start,end)
-    let list = await otherAppModel.getPageList(start,offset)
-    let total = await otherAppModel.getPageListTotal()
-    ctx.body = {
-      data: { list,total,start,current,pageSize },
-      stat: STAT.STAT_OK
-    }
-  } catch (err) {
-    ctx.err(err)
-  }
-})
+//     // console.log(start,end)
+//     let list = await otherAppModel.getPageList(start,offset)
+//     let total = await otherAppModel.getPageListTotal()
+//     ctx.body = {
+//       data: { list,total,start,current,pageSize },
+//       stat: STAT.STAT_OK
+//     }
+//   } catch (err) {
+//     ctx.err(err)
+//   }
+// })
 
 // 前端接口
 router.all('/jd.listAll', async (ctx, next) => {
   try {
     let isActive = 1;
-    let list = await otherAppModel.jdListAll(isActive, 0, 8)
+    let list = await otherAppModel.jdListAll(isActive, 0, PARAM.NUM_OTHERAPP)
     ctx.body = {
       data: { list },
       stat: STAT.STAT_OK

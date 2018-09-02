@@ -14,7 +14,7 @@ export default class ComponentHeader extends Component {
 
     componentDidMount() {
         http.post({
-            url: '/swiper/listAll'
+            url: '/swiper/jd.listAllSwiper'
         }).then(result => {
             if (result.stat === 'OK') {
                 this.setState({ imgUrls: result.data.list });

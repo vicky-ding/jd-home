@@ -7,6 +7,9 @@ import { Input, InputNumber, Switch, Button, Table, message, Breadcrumb, Modal, 
 export default class Swiper extends React.Component {
     state = {
         list: [],
+        total: 0,        //总共几条数据
+        pageSize: 10,     //一页显示几条数据
+        current: 1,
         visible: false,
         loading: false,
         form: {
@@ -54,7 +57,7 @@ export default class Swiper extends React.Component {
     }]
 
     componentWillMount() {
-        this.getListData();
+        this.getListData(this.state.current,this.state.pageSize);
     }
 
     renderForm() {
@@ -116,7 +119,23 @@ export default class Swiper extends React.Component {
                     <Button className="ml-20" onClick={this.openDialog.bind(this, true)}>添加</Button>
                 </div>
                 <div className="block-box">
-                    <Table bordered loading={this.state.loading} rowKey={(record, index) => index} columns={this.columns} dataSource={this.state.list}/>
+                    <Table bordered loading={this.state.loading} 
+                     rowKey={(record, index) => index}
+                     columns={this.columns} 
+                     dataSource={this.state.list}
+                     pagination={{
+                         total:this.state.total,
+                         pageSize:this.state.pageSize,
+                         defaultCurrent:this.state.current,
+                         showTotal: total => `共${total}条数据`,
+                         onChange: (current,pageSize)=>{
+                             this.setState({
+                                current: current,
+                                pageSize: pageSize
+                             },()=> this.getListData(current,pageSize))
+                         }
+                     }
+                     }/>
                 </div>
                 {/* <SwiperForm
                     onCreate={this.addSwiper}
@@ -132,26 +151,56 @@ export default class Swiper extends React.Component {
         this.setState({ form: this.state.form });
     }
 
-    getListData() {
-        this.setState({loading: true});
-        let params = {};
-        if (this.state.active !== '') {
-            params.active = this.state.active;
-        }
+    // getListData() {
+    //     this.setState({loading: true});
+    //     let params = {};
+    //     if (this.state.active !== '') {
+    //         params.active = this.state.active;
+    //     }
+    //     http.post({
+    //         url: '/swiper/listAll',
+    //         data: params
+    //     }).then(result => {
+    //         if (result.stat === 'OK') {
+    //             this.setState({ list: result.data.list });
+    //         } else {
+    //             message.error(result.message || '出错了');
+    //         }
+    //         this.setState({loading: false});
+    //     }).catch(err => {
+    //         this.setState({loading: false});
+    //         message.error('网络出了问题，请重新尝试~')
+    //     });
+    // }
+
+    // 结合分页查询
+    getListData(){
+        this.setState({loading:true})
+        let params = {}
+
+        params.active = this.state.active
+        params.current = this.state.current
+        params.pageSize = this.state.pageSize
+        console.log(params)
+        
         http.post({
-            url: '/swiper/listAll',
+            url: '/swiper/jd.pageListAll',
             data: params
-        }).then(result => {
-            if (result.stat === 'OK') {
-                this.setState({ list: result.data.list });
-            } else {
-                message.error(result.message || '出错了');
+        }).then(
+            result =>{
+                console.log(result)
+                if(result.stat === 'OK'){
+                    this.setState({list: result.data.list, count: result.data.total})
+                }else{
+                    this.setState({loading: false})
+                    message.error(result.message || '出错了')
+                }
             }
-            this.setState({loading: false});
-        }).catch(err => {
-            this.setState({loading: false});
+        ).catch(err=>{
+            this.setState({loading: false})
             message.error('网络出了问题，请重新尝试~')
-        });
+        })
+
     }
 
     addSwiper() {

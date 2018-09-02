@@ -43,7 +43,7 @@ exports.deleteById = id => {
 }
 
 /**
- * 查找后台所有的信息
+ * 后台查找所有的信息
  */
 exports.listAll = () => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`active\` DESC, \`orderval\` ASC;`
@@ -51,17 +51,45 @@ exports.listAll = () => {
 }
 
 /**
- * 查找后台所有的信息
+ * 后台查找所有的信息
  */
 exports.listByActive = active => {
-  let sql = `SELECT * FROM \`${TABLE_NAME}\` where \`active\` = ? ORDER BY \`active\` DESC, \`orderval\` ASC;`
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\` = ? ORDER BY \`active\` DESC, \`orderval\` ASC;`
+  return MySql.query(sql, [active])
+}
+
+
+/**
+ * 后台分页查找所有的信息接口,全部信息中取某一页
+ */
+exports.getPageList = (start,offset) =>{
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\ = ? ORDER BY \`id\` ASC LIMIT ?,?;`
+  return MySql.query(start, offset)
+}
+
+// 分页接口，按是否上架取某一页接口
+exports.getPageListByActive = (active, start, offset) =>{
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\` = ? ORDER BY \`id\` ASC LIMIT ?, ?;`
+  return MySql.query(sql, [active, start, offset])
+}
+
+// 得到全部数据的条数
+exports.getPageListTotal = ()=>{
+  let sql = `SELECT COUNT(*) AS \`total\` FROM \`${TABLE_NAME}\`;`
+  return MySql.query(sql)
+}
+
+// 依据上架状态查询数据数目
+exports.getPageListTotalByActive = (active)=>{
+  let sql = `SELECT COUNT(*) AS \`total\` FROM \`${TABLE_NAME}\` WHERE \`active\` = ?;`
   return MySql.query(sql, [active])
 }
 
 /**
- * 查找后台所有的信息
+ * 前台查找所有的信息
  */
-exports.jdListAll = (active, start,end) => {
-  let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`active\`=? DESC, \`orderval\` ASC LIMIT start,end;`
-  return MySql.query(sql, [active, start,end])
+exports.jdListAll = (active, start, end) => {
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\`= ? ORDER BY \`orderval\` ASC LIMIT ?, ?;`
+  return MySql.query(sql, [active, start, end])
 }
+

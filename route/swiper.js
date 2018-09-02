@@ -2,6 +2,7 @@ const util = require('../lib/util')
 const STAT = require('../lib/stat')
 const router = require('koa-router')()
 const swiperModel = require('../model/swiper')
+const PARAM = require('../lib/configParam')
 
 router.all('/addSwiper', async (ctx, next) => {
   try {
@@ -67,4 +68,44 @@ router.all('/deleteById', async (ctx, next) => {
   }
 })
 
+router.all('/jd.pageListAll', async (ctx, next) => {
+  try {
+    let list = [],
+        total,
+        current = util.getNumber(ctx.request.body, 'current'),
+        pageSize = util.getNumber(ctx.request.body, 'pageSize'),
+        start = (current - 1) * pageSize;
+    if (ctx.request.body.active == '0' || ctx.request.body.active == '1') {
+      let active = util.getNumber(ctx.request.body, 'active')
+      list = await swiperModel.getPageListByActive(active, start, offset)
+      total = await swiperModel.getPageListTotalByActive(active)
+    } else {
+      list = await swiperModel.getPageList(start, offset)
+      total = await swiperModel.getPageListTotal()
+    }
+    if (total.length > 0) {
+      total = total[0].total
+    }
+    ctx.body = {
+      data: { list, total },
+      stat: STAT.STAT_OK
+    }
+  } catch (err) {
+    ctx.err(err)
+  }
+})
+
+// 前端请求接口
+router.all('/jd.listAllSwiper', async (ctx, next) => {
+  try {
+    let isActive = 1,
+      list = await swiperModel.jdListAll(isActive, 0, PARAM.NUM_SWIPER)
+    ctx.body = {
+      data: { list },
+      stat: STAT.STAT_OK
+    }
+  } catch (err) {
+    ctx.err(err)
+  }
+})
 module.exports = router

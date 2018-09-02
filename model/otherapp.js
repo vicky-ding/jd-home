@@ -43,19 +43,6 @@ exports.deleteById = async id => {
   return MySql.query(sql, [id])
 }
 
-// /**
-//  * 查找所有的信息
-//  */
-// exports.listAll = () => {
-//   let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`active \` DESC, \`orderval\` ASC;`
-//   return MySql.query(sql, [])
-// }
-
-// exports.listByActive = active =>{
-//   let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\`= ? ORDER BY \`active\` DESC, \`orderval\`ASC;`
-//   return MySql.query(sql, [active])
-// }
-
 /**
  * 后台查找所有的信息
  */
