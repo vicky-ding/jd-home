@@ -22,6 +22,32 @@ router.all('/addLikeGoods', async (ctx, next) => {
 })
 
 
+router.all('/PageListAll', async (ctx, next)=>{
+  let list=[],
+      current = util.getNumber(ctx.request.body, 'current'),
+      pageSize = util.getNumber(ctx.request.body, 'pageSize'),
+      start = (current-1)*pageSize
+  try{
+    if(ctx.request.body.active =='0'|| ctx.request.active == '1'){
+      let active = util.getNumber(ctx.request.body, 'active')
+      list = await likeModel.getPageListByActive(active, start, pageSize)
+      total = await likeModel.getPageListTotalByActive(active)
+    }else{
+      list = await likeModel.getPageList(start,pageSize)
+      total = await likeModel.getPageListTotal()
+    }
+    if(total.length >0){
+      total = total[0].total
+    }
+    ctx.body ={
+      data: { list, total },
+      stat: STAT.STAT_OK
+    }
+  }catch(err){
+    ctx.err(err)
+  }
+})
+
 router.all('/listAll', async (ctx, next) => {
   try {
     let list = []

@@ -7,6 +7,9 @@ import { Breadcrumb, Modal, Form, Input, message, InputNumber, Switch, Select, B
 export default class Like extends React.Component {
     state = {
         list: [],
+        current:1,
+        pageSize:10,
+        total:0,
         visible: false,
         loading: false,
         form: {
@@ -137,11 +140,23 @@ export default class Like extends React.Component {
                     </Select>
                     <Button className="ml-20" onClick={this.getListData.bind(this)}>查询</Button>
                     <Button className="ml-20" onClick={this.openDialog.bind(this, true)}>添加</Button>
-                    {/* <Button className="ml-20" >查询</Button>
-                    <Button className="ml-20" >添加</Button> */}
                 </div>
                 <div className="block-box">
-                    <Table bordered loading={this.state.loading} rowKey={(record, index) => index} columns={this.columns} dataSource={this.state.list} />
+                    <Table bordered loading={this.state.loading}
+                     rowKey={(record, index) => index} 
+                     columns={this.columns} 
+                     dataSource={this.state.list} 
+                     pagination ={{
+                         total: this.state.total,
+                         pageSize:this.state.pageSize,
+                         showTotal: total => `一共${total}条数据`,
+                         onChange: (current, pageSize)=>{
+                             this.setState({
+                                 current: current,
+                                 pageSize: pageSize
+                             }, ()=>this.getListData(current, pageSize))
+                         }
+                     }}/>
                 </div>
 
             </div>
@@ -154,26 +169,54 @@ export default class Like extends React.Component {
     }
 
     // 查询
-    getListData() {
-        this.setState({loading: true});
-        let params = {};
-        if (this.state.active !== '') {
-            params.active = this.state.active;
-        }
+    // getListData() {
+    //     this.setState({loading: true});
+    //     let params = {};
+    //     if (this.state.active !== '') {
+    //         params.active = this.state.active;
+    //     }
+    //     http.post({
+    //         url: '/like/listAll',
+    //         data: params
+    //     }).then(result => {
+    //         if (result.stat === 'OK') {
+    //             this.setState({ list: result.data.list });
+    //         } else {
+    //             message.error(result.message || '出错了');
+    //         }
+    //         this.setState({loading: false});
+    //     }).catch(err => {
+    //         this.setState({loading: false});
+    //         message.error('网络出了问题，请重新尝试~')
+    //     });
+    // }
+
+    // 结合分页查询
+    getListData(){
+        this.setState({loading: true})
+        let params = {}
+        params.active = this.state.active
+        params.current = this.state.current
+        params.pageSize = this.state.pageSize
+
         http.post({
-            url: '/like/listAll',
+            url: '/like/PageListAll',
             data: params
-        }).then(result => {
-            if (result.stat === 'OK') {
-                this.setState({ list: result.data.list });
-            } else {
-                message.error(result.message || '出错了');
+        }).then(
+            result =>{
+                if(result.stat === 'OK'){
+                    this.setState({list: result.data.list, total: result.data.total})                 
+                }else{
+                    message.error(result.message || '出错了')                   
+                } 
+                 this.setState({loading:false})
             }
-            this.setState({loading: false});
-        }).catch(err => {
-            this.setState({loading: false});
-            message.error('网络出了问题，请重新尝试~')
-        });
+        ).catch(
+            err =>{
+                this.setState({loading: false}),
+                message.error('网络出了问题，请重新尝试~')
+            }
+        )
     }
     // 添加
     addLikeGoods() {

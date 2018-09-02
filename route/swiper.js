@@ -68,6 +68,7 @@ router.all('/deleteById', async (ctx, next) => {
   }
 })
 
+// 后台查询接口，结合分页
 router.all('/jd.pageListAll', async (ctx, next) => {
   try {
     let list = [],

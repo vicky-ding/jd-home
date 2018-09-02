@@ -181,16 +181,14 @@ export default class Swiper extends React.Component {
         params.active = this.state.active
         params.current = this.state.current
         params.pageSize = this.state.pageSize
-        console.log(params)
-        
         http.post({
             url: '/swiper/jd.pageListAll',
             data: params
         }).then(
             result =>{
-                console.log(result)
                 if(result.stat === 'OK'){
                     this.setState({list: result.data.list, count: result.data.total})
+                    this.setState({loading:false})
                 }else{
                     this.setState({loading: false})
                     message.error(result.message || '出错了')

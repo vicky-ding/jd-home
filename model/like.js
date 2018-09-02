@@ -60,3 +60,28 @@ exports.listByActive = active => {
   let sql = `SELECT * FROM \`${TABLE_NAME}\` where \`active\` = ? ORDER BY \`active\` DESC, \`orderval\` ASC;`
   return MySql.query(sql, [active])
 }
+
+// 分页接口，全部数据中取某一页数据
+exports.getPageList = (start,offset) =>{
+  // let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`orderval\` ASC LIMIT ?, ?;`
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`id\` ASC LIMIT ?, ?;`
+  // return MySql.query(sql, [active, start, end])
+  return MySql.query(sql, [start,offset])
+}
+// 分页接口，按是否上架取某一页接口
+exports.getPageListByActive = (active, start, offset) =>{
+  // let sql = `SELECT * FROM \`${TABLE_NAME}\` ORDER BY \`orderval\` ASC LIMIT ?, ?;`
+  let sql = `SELECT * FROM \`${TABLE_NAME}\` WHERE \`active\` = ? ORDER BY \`id\` ASC LIMIT ?, ?;`
+  return MySql.query(sql, [active, start, offset])
+}
+
+// 得到全部数据总数
+exports.getPageListTotal = ()=>{
+  let sql = `SELECT COUNT(*) AS \`total\` FROM \`${TABLE_NAME}\`;`
+  return MySql.query(sql)
+}
+// 按是否上架得到数据总数
+exports.getPageListTotalByActive = (active)=>{
+  let sql = `SELECT COUNT(*) AS \`total\` FROM \`${TABLE_NAME}\` WHERE \`active\` = ?;`
+  return MySql.query(sql,[active])
+}
