@@ -63,10 +63,6 @@ export default class Like extends React.Component {
                 <Button style={{ marginLeft: 10 }} size="small" onClick={this.openDialog.bind(this, false, row)}>编辑</Button>
                 <Button style={{ marginLeft: 10 }} type="danger" size="small" onClick={this.delete.bind(this, row)}>删除</Button>
             </div>
-            // <div>
-            //     <Button style={{ marginLeft: 10 }} size="small">编辑</Button>
-            //     <Button style={{ marginLeft: 10 }} type="danger" size="small">删除</Button>
-            // </div>
         )
     }]
     componentWillMount() {
@@ -224,7 +220,6 @@ export default class Like extends React.Component {
             url: '/like/addLikeGoods',
             data: this.state.form
         }).then(result => {
-            console.log(result)
             if (result.stat === 'OK') {
                 message.success('添加成功~');
                 this.getListData();

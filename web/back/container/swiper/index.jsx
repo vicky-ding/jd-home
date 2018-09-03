@@ -75,9 +75,9 @@ export default class Swiper extends React.Component {
                     okText='确定'
                     cancelText="取消"
                     visible={this.state.visible}
-                    title={this.state.isAdd?'添加记录':'编辑记录'}
+                    title={this.state.isAdd ? '添加记录':'编辑记录'}
                     onCancel={() => this.setState({ visible: false })}
-                    onOk={this.state.isAdd?this.addSwiper.bind(this):this.editSwiper.bind(this)}>
+                    onOk={this.state.isAdd ? this.addSwiper.bind(this):this.editSwiper.bind(this)}>
                     <Form>  
                         <div className="flex">
                             <div className="form-left">
@@ -94,7 +94,7 @@ export default class Swiper extends React.Component {
                                         <label>排序值：</label>
                                         <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
                                         <label style={{ marginLeft: 20 }}>是否上架：</label>
-                                        <Switch checked={this.state.form.active} onChange={checked => this.setFormState('active', checked)} />
+                                        <Switch checked={this.state.form.active.toString()} onChange={checked => this.setFormState('active', checked)} />
                                     </div>
                                 </div>
                             </div>

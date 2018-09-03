@@ -74,6 +74,7 @@ router.all('/user', require('./route/user'))
 router.use('/swiper',  require('./route/swiper').routes())
 router.use('/otherapp',  require('./route/otherapp').routes())
 router.use('/like',  require('./route/like').routes())
+router.use('/spike',  require('./route/spike').routes())
 
 const routes = router.routes()
 app.use(routes)
