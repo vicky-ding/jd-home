@@ -85,58 +85,56 @@ export default class Spike extends React.Component {
                     onCancel={() => this.setState({ visible: false })}
                     onOk={this.state.isAdd ? this.addList.bind(this) : this.editList.bind(this)}
                 >
-                    <Form>
-                        <div className="flex">
-                            <div className="form-left">
-                                <div className="flex mb-20">
-                                    <label>秒杀价格</label>
-                                    <Input value={this.state.form.priceNow} 
-                                        style={{ flex: 1 }}
-                                        placeholder='请输入秒杀价格' 
-                                        onChange={e => this.setFormState('priceNow', e.target.value)}>
-                                    </Input>
-                                </div>
-                                <div className="flex mb-20">
-                                    <label>原价</label>
-                                    <Input value={this.state.form.priceBefore} 
-                                        style={{ flex: 1 }}
-                                        placeholder='请输入原价' 
-                                        onChange={e => this.setFormState('priceBefore', e.target.value)}>
-                                    </Input>
-                                </div>
-                                <div className="flex mb-20">
-                                    <label>跳转链接</label>
-                                    <Input value={this.state.form.url} 
-                                        style={{ flex: 1 }}
-                                        placeholder='请输入跳转链接' 
-                                        onChange={e => this.setFormState('url', e.target.value)}>
-                                    </Input>
-                                </div>
-                                <div className="flex mb-20">
-                                    <label>图像链接</label>
-                                    <Input value={this.state.form.icon} style={{ flex: 1 }}
-                                        placeholder='请输入图像链接' onChange={e => {
-                                            this.setFormState('icon', e.target.value)
-                                        }}>
-                                    </Input>
-                                </div>
-
-                                 <div className="flex-between mt-20">
-                                    <div>
-                                        <label>排序值：</label>
-                                        <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
-                                        <label style={{ marginLeft: 20 }}>是否上架：</label>
-                                        <Switch active={this.state.form.active} onChange={active => this.setFormState('active', active)} />
-                                    </div>
-                                </div>
+                    <div className="flex">
+                        <div className="form-left">
+                            <div className="flex mb-20">
+                                <label>秒杀价格</label>
+                                <Input value={this.state.form.priceNow} 
+                                    style={{ flex: 1 }}
+                                    placeholder='请输入秒杀价格' 
+                                    onChange={e => this.setFormState('priceNow', e.target.value)}>
+                                </Input>
                             </div>
-                            <div className="form-right">
-                                <div className="preview">
-                                    {this.state.form.icon && <img src={this.state.form.icon} />}
+                            <div className="flex mb-20">
+                                <label>原价</label>
+                                <Input value={this.state.form.priceBefore} 
+                                    style={{ flex: 1 }}
+                                    placeholder='请输入原价' 
+                                    onChange={e => this.setFormState('priceBefore', e.target.value)}>
+                                </Input>
+                            </div>
+                            <div className="flex mb-20">
+                                <label>跳转链接</label>
+                                <Input value={this.state.form.url} 
+                                    style={{ flex: 1 }}
+                                    placeholder='请输入跳转链接' 
+                                    onChange={e => this.setFormState('url', e.target.value)}>
+                                </Input>
+                            </div>
+                            <div className="flex mb-20">
+                                <label>图像链接</label>
+                                <Input value={this.state.form.icon} style={{ flex: 1 }}
+                                    placeholder='请输入图像链接' onChange={e => {
+                                        this.setFormState('icon', e.target.value)
+                                    }}>
+                                </Input>
+                            </div>
+
+                                <div className="flex-between mt-20">
+                                <div>
+                                    <label>排序值：</label>
+                                    <InputNumber min={1} style={{ width: 100 }} defaultValue={this.state.form.orderval} value={this.state.form.orderval} onChange={value => this.setFormState('orderval', value)} />
+                                    <label style={{ marginLeft: 20 }}>是否上架：</label>
+                                    <Switch checked={this.state.form.active} onChange={active => this.setFormState('active', active)} />
                                 </div>
                             </div>
                         </div>
-                    </Form>
+                        <div className="form-right">
+                            <div className="preview">
+                                {this.state.form.icon && <img src={this.state.form.icon} />}
+                            </div>
+                        </div>
+                    </div>
                 </Modal>
 
                 <div className="block-box">
